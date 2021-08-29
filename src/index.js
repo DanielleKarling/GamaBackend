@@ -12,12 +12,14 @@ mongoose.connect(
     useNewUrlParser: true,
     useCreateIndex: true,
   }
-)
+);
+
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use(routes);
-app.listen("5000", () => {
-  console.log("rodando na porta 5000");
+app.listen(port, () => {
+  console.log("rodando na porta " + port);
 });
