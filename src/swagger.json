@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
 
   "info": {
-    "title": "API do projetinho massa",
-    "description": "essa é a api massa do projetinho massa",
+    "title": "API Banco de Currículos",
+    "description": "API destinada a  cadastro de candidatos",
     "version": "0.0.1"
   },
 
@@ -18,35 +18,31 @@
     "/register": {
       "post": {
         "summary": "Cadastro de candidato",
-        "description": "Rota de cadastro de usuário, recebe: nome, genêro, email e cep",
+        "description": "Rota de cadastro de usuário",
         "tags": ["candidato"],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "cep": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  }
-                }
-              },
-              "examples": {
-                "eu mermo": {
-                  "value": {
-                    "name": "Pedro Sato",
-                    "gender": "Masculino Cis",
-                    "cep": "00000-000",
-                    "email": "pedro.hiro@gmail.com"
-                  }
+                "properties":   {
+                  "nome": { "type": "string" },
+                  "cargo": { "type": "string" },
+                  "email": { "type": "string" },
+                  "dataNacimento": { "type": "string" },
+                  "estadoCivil": { "type": "string" },
+                  "sexo": { "type": "string" },
+                  "endereco": { "type": "string" },
+                  "bairro": { "type": "string" },
+                  "cidade": { "type": "string" },
+                  "cep": { "type": "string" },
+                  "telefone1": { "type": "string" },
+                  "telefone2": { "type": "string" },
+                  "celular": { "type": "string" },
+                  "contato": { "type": "string" },
+                  "identidade": { "type": "string" },
+                  "cpf": { "type": "string" },
+                  "veiculo": { "type": "string" },
+                  "habilitacao": { "type": "string" }
                 }
               }
             }

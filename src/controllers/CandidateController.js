@@ -1,28 +1,31 @@
-const Candidate = require('../models/Candidate');
-
+const Candidate = require("../models/Candidate");
+const { validationResult } = require("express-validator");
 
 module.exports = {
-    async register(req, res) {
+  async register(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const candidateRequest = req.body;
 
-        const { email, gender, name, cep } = req.body;
+    const duplicatedCPF = await Candidate.find({
+      cpf: candidateRequest.cpf,
+    }).exec();
 
-        const newCandidate = new Candidate();
+    if (duplicatedCPF.length != 0) {
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "CPF já cadastrado, verifique!" }] });
+    }
 
-        newCandidate.email = email;
-        newCandidate.name = name;
-        newCandidate.gender = gender;
-        newCandidate.cep = cep;
+    try {
+      const newCandidate = new Candidate(candidateRequest);
+      const response = await newCandidate.save();
+    } catch (err) {
+      return res.status(500).send(err);
+    }
 
-        newCandidate.save((err, savedCandidate) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send('iti malia deu probleminha!');
-            }
-
-            return res.status(200).send(savedCandidate);
-        });
-    },
-
-
-
+    return res.status(200).send("ok");
+  },
 };
